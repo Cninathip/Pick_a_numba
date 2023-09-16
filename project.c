@@ -1,8 +1,11 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
+#include<conio.h> 
+#include<stdlib.h>
 
 void how_to_play(char answer);
+int random_num(void);
 
 void how_to_play(char answer)
 {
@@ -10,16 +13,22 @@ void how_to_play(char answer)
     {
         printf("-------\n");
         printf("How to play this game!\n");
-        printf("There are 9 slots, and each you can choose only 3 slots. You cannot see the numbers inside the selected slots. ");
+        printf("There are 9 slots, number in range is 0-10 and you can choose only 3 slots. You cannot see the numbers inside the selected slots. ");
         printf("Who is with the highest total sum will win that round, and must win 2 out of 3 rounds to conclude the game.");
         printf("\n-------\n");
     }
+}
+
+int random_num(void)
+{
+    return rand() % 10;
 }
 
 int main()
 {
     char how_to;
     char player1[10], player2[10];
+    int number[10];
 
     printf("Do you want to know how to play this game?\n(Please answer yes/no)\n");
     scanf("%c", &how_to);
@@ -31,5 +40,8 @@ int main()
     printf("Player2 : ");
     scanf(" %[^\n]", &player2);
 
-    
+    for (int i=0; i<10; i++)
+    {
+        number[i] = random_num();
+    }
 }
