@@ -2,11 +2,11 @@
 #include<ctype.h>
 #include<string.h>
 
-void how_to_play(char answer[]);
+void how_to_play(char answer);
 
-void how_to_play(char answer[])
+void how_to_play(char answer)
 {
-    if (strcmp(tolower(answer), "yes"))
+    if (tolower(answer) == 'y')
     {
         printf("How to play this game!\n");
         printf("");
@@ -15,9 +15,10 @@ void how_to_play(char answer[])
 
 int main()
 {
-    char how_to[5];
+    char how_to;
 
-    scanf("Do you want to know how to play this game?\n(Please answer yes/no)\n%s", how_to);
+    printf("Do you want to know how to play this game?\n(Please answer yes/no)\n");
+    scanf("%c", &how_to);
 
     how_to_play(how_to);
 }
