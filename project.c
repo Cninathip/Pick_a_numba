@@ -30,7 +30,7 @@ int main()
     char player1[10], player2[10];
     int number[10];
 
-    printf("Do you want to know how to play this game?\n(Please answer yes/no)\n");
+    printf("Do you want to know how to play this game?\n(Please answer y/n)\n");
     scanf("%c", &how_to);
     how_to_play(how_to);
 
