@@ -37,9 +37,9 @@ int main()
 
     printf("Please enter your name.\n(character can not longer than 10 characer)\n");
     printf("Player1 : ");
-    scanf(" %[^\n]", &player1);
+    scanf(" %[^\n]", player1);
     printf("Player2 : ");
-    scanf(" %[^\n]", &player2);
+    scanf(" %[^\n]", player2);
 
     for (int i=0; i<10; i++)
     {
