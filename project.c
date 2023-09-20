@@ -3,6 +3,7 @@
 #include<string.h>
 #include<conio.h> 
 #include<stdlib.h>
+#include<time.h>
 
 void how_to_play(char answer);
 int random_num();
@@ -22,6 +23,14 @@ void how_to_play(char answer)
 
 int random_num()
 {
+    static int initialized = 0;
+    
+    if (!initialized)
+    {
+        srand(time(NULL));
+        initialized = 1;
+    }
+    
     return rand() % 10;
 }
 
@@ -30,25 +39,45 @@ int main()
     char how_to;
     char player1[10], player2[10];
     int number[10];
-    unsigned int seed;
+    int count1=0, count2=0;
+    const char *ability[3] = {"Increase your score ", "Deducting points from the opposing player ", "Stealing abilities"};
 
     printf("Do you want to know how to play this game?\n(Please answer y/n)\n");
     scanf("%c", &how_to);
     how_to_play(how_to);
 
-    printf("Please enter your name.\n(character can not longer than 10 characer)\n");
+    printf("Please enter your name.\n(character can not longer than 10 characer.)\n");
     printf("Player1 : ");
     scanf(" %[^\n]", player1);
     printf("Player2 : ");
     scanf(" %[^\n]", player2);
 
-    printf("Input your favourtie number for luck!!!\n");
-    printf("(Please input only integer.)\n");
-    scanf(" %u", &seed);
-
-    for (int i=0; i<10; i++)
+    printf("It's time to random ability!\n");
+    char *abi1 = ability[random_num() % 3];
+    int p1 = (random_num() % 4) + 1;
+    char *abi2 = ability[(random_num() + 1) % 3];
+    int p2 = (random_num() % 4) + 1;
+    if (strcmp(abi1, "Stealing abilities") == 0)
     {
-        srand(seed++);
-        number[i] = random_num();
+        printf("Player1 your ability is Stealing abilities\n");
+        count1++;
+    }
+    else if (count1 == 0)
+        printf("Player1 your ability is %s (%d)\n", abi1, p1);
+    if (strcmp(abi2, "Stealing abilities") == 0)
+    {
+        printf("Player2 your ability is Stealing abilities\n");
+        count2++;
+    }
+    else if (count2 == 0)
+        printf("Player2 your ability is %s (%d)\n", abi2, p2);
+    
+
+    for (int i=0; i<3; i++)
+    {
+        for (int i=0; i<10; i++)
+        {
+            number[i] = random_num();
+        }
     }
 }
