@@ -5,16 +5,22 @@
 #include<stdlib.h>
 #include<time.h>
 
-struct player{
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
+void how_to_play(char answer);
+int random_num();
+
+struct player
+{
     char name[10];
     char *abil;
     int winscore;
     int totalnumber;
 };
-
-
-void how_to_play(char answer);
-int random_num();
 
 void how_to_play(char answer)
 {
@@ -44,9 +50,8 @@ int random_num()
 
 int main()
 {
-    char how_to;
+    char how_to, remem1, remem2;
     struct player player[2];
-    
     int number[10];
     int count1=0, count2=0;
     char *ability[3] = {"Increase your score ", "Deducting points from the opposing player ", "Stealing abilities"};
@@ -66,6 +71,7 @@ int main()
     int p1 = (random_num() % 4) + 1;
     player[1].abil = ability[(random_num() + 1) % 3];
     int p2 = (random_num() % 4) + 1;
+    system(CLEAR);
     if (strcmp(player[0].abil, "Stealing abilities") == 0)
     {
         printf("Player1 your ability is Stealing abilities\n");
@@ -73,6 +79,9 @@ int main()
     }
     else if (count1 == 0)
         printf("Player1 your ability is %s (%d)\n", player[0].abil, p1);
+    printf("If you've memorized the abilities, please type y\n");
+    scanf(" %c", &remem1);
+    system(CLEAR);
     if (strcmp(player[1].abil, "Stealing abilities") == 0)
     {
         printf("Player2 your ability is Stealing abilities\n");
@@ -80,6 +89,8 @@ int main()
     }
     else if (count2 == 0)
         printf("Player2 your ability is %s (%d)\n", player[1].abil, p2);
+    printf("If you've memorized the abilities, please type y\n");
+    system(CLEAR);
     
 
     for (int i=0; i<3; i++)
@@ -89,4 +100,6 @@ int main()
             number[i] = random_num();
         }
     }
+
+    return 0;
 }
