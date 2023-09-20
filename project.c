@@ -14,7 +14,7 @@ void how_to_play(char answer)
     {
         printf("-------\n");
         printf("How to play this game!\n");
-        printf("There are 9 slots, number in range is 0-10 and you can choose only 3 slots. You cannot see the numbers inside the selected slots. ");
+        printf("There are 9 slots, number in range are 0-10 and you can choose only 3 slots. You cannot see the numbers inside the selected slots. ");
         printf("Who is with the highest total sum will win that round, and must win 2 out of 3 rounds to conclude the game.\n");
         printf("And of course, we have a special rule. At the beginning of the game, there will be a random ability assigned to each player to help increase or decrease the numbers of the opponent. Plus, there's also the option to steal abilities.");
         printf("\n-------\n");
