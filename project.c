@@ -5,7 +5,7 @@
 #include<stdlib.h>
 
 void how_to_play(char answer);
-int random_num(void);
+int random_num();
 
 void how_to_play(char answer)
 {
@@ -20,7 +20,7 @@ void how_to_play(char answer)
     }
 }
 
-int random_num(void)
+int random_num()
 {
     return rand() % 10;
 }
@@ -30,6 +30,7 @@ int main()
     char how_to;
     char player1[10], player2[10];
     int number[10];
+    unsigned int seed;
 
     printf("Do you want to know how to play this game?\n(Please answer y/n)\n");
     scanf("%c", &how_to);
@@ -41,8 +42,13 @@ int main()
     printf("Player2 : ");
     scanf(" %[^\n]", player2);
 
+    printf("Input your favourtie number for luck!!!\n");
+    printf("(Please input only integer.)\n");
+    scanf(" %u", &seed);
+
     for (int i=0; i<10; i++)
     {
+        srand(seed++);
         number[i] = random_num();
     }
 }
