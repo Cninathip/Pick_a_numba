@@ -50,7 +50,7 @@ int random_num()
 
 int main()
 {
-    char how_to, remem1, remem2;
+    char how_to, remem1, remem2, remem[100];
     struct player player[2];
     int number[10];
     int count1=0, count2=0;
@@ -71,6 +71,9 @@ int main()
     int p1 = (random_num() % 4) + 1;
     player[1].abil = ability[(random_num() + 1) % 3];
     int p2 = (random_num() % 4) + 1;
+    printf("From now on, no other player should see your abilities. Ready or not?\n");
+    printf("Please type something to confirm.\n");
+    scanf(" %[^\n]", remem);
     system(CLEAR);
     if (strcmp(player[0].abil, "Stealing abilities") == 0)
     {
