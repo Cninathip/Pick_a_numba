@@ -77,31 +77,29 @@ int main()
     system(CLEAR);
     if (strcmp(player[0].abil, "Stealing abilities") == 0)
     {
-        printf("Player1 your ability is Stealing abilities\n");
+        printf("%s your ability is Stealing abilities\n", player[0].name);
         count1++;
     }
     else if (count1 == 0)
-        printf("Player1 your ability is %s (%d)\n", player[0].abil, p1);
+        printf("%s your ability is %s (%d)\n", player[0].name, player[0].abil, p1);
     printf("If you've memorized the abilities, please type y\n");
     scanf(" %c", &remem1);
     system(CLEAR);
     if (strcmp(player[1].abil, "Stealing abilities") == 0)
     {
-        printf("Player2 your ability is Stealing abilities\n");
+        printf("%s your ability is Stealing abilities\n", player[1].name);
         count2++;
     }
     else if (count2 == 0)
-        printf("Player2 your ability is %s (%d)\n", player[1].abil, p2);
+        printf("%s your ability is %s (%d)\n", player[1].name, player[1].abil, p2);
     printf("If you've memorized the abilities, please type y\n");
+    scanf(" %c", &remem2);
     system(CLEAR);
     
-
     for (int i=0; i<3; i++)
     {
         for (int i=0; i<10; i++)
-        {
             number[i] = random_num();
-        }
     }
 
     return 0;
