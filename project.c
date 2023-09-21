@@ -13,6 +13,7 @@
 
 void how_to_play(char answer);
 int random_num();
+void checking(int number, char set[]);
 
 struct player
 {
@@ -48,6 +49,18 @@ int random_num()
     return rand() % 10;
 }
 
+void checking(int number, char set[])
+{
+    for (int i = 0; i < 41; i++)
+    {
+        if (set[i] == number + '0')
+        {
+            set[i] = 'X';
+            break;
+        }
+    }
+}
+
 int main()
 {
     char how_to, remem1, remem2, remem[100];
@@ -55,6 +68,7 @@ int main()
     int number[10];
     int count1=0, count2=0;
     char *ability[3] = {"Increase your score ", "Deducting points from the opposing player ", "Stealing abilities"};
+    int select1, select2;
 
     printf("Do you want to know how to play this game?\n(Please answer y/n)\n");
     scanf("%c", &how_to);
@@ -62,9 +76,9 @@ int main()
 
     printf("Please enter your name.\n(character can not longer than 10 characer.)\n");
     printf("Player1 : ");
-    scanf(" %[^\n]", &player[0].name);
+    scanf(" %[^\n]", player[0].name);
     printf("Player2 : ");
-    scanf(" %[^\n]", &player[1].name);
+    scanf(" %[^\n]", player[1].name);
 
     printf("It's time to random ability!\n");
     player[0].abil = ability[random_num() % 3];
@@ -96,10 +110,42 @@ int main()
     scanf(" %c", &remem2);
     system(CLEAR);
     
+    printf("Let's start!!!\n");
+    player[0].winscore = 0;
+    player[1].winscore = 0;
+
     for (int i=0; i<3; i++)
     {
+        printf("Round %d\n", i+1);
+        player[0].totalnumber = 0;
+        player[1].totalnumber = 0;
+        char set_of_num[41] = {"| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |"};
+
         for (int i=0; i<10; i++)
             number[i] = random_num();
+
+        for (int i=0; i<3; i++)
+        {
+            printf("%s score: %d\n", player[0].name, player[0].totalnumber);
+            printf("%s score: %d\n", player[1].name, player[1].totalnumber);
+            printf("*****************\n");
+            printf("%s", set_of_num);
+            printf("\n%s please enter your number you choose.\n", player[0].name);
+            scanf("%d", &select1);
+            player[0].totalnumber += number[select1];
+            checking(select1, set_of_num);
+            system(CLEAR);
+
+            printf("%s score: %d\n", player[0].name, player[0].totalnumber);
+            printf("%s score: %d\n", player[1].name, player[1].totalnumber);
+            printf("*****************\n");
+            printf("%s", set_of_num);
+            printf("\n%s please enter your number you choose.\n", player[1].name);
+            scanf("%d", &select2);
+            player[1].totalnumber += number[select2];
+            checking(select2, set_of_num);
+            system(CLEAR);
+        }
     }
 
     return 0;
