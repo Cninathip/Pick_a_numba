@@ -14,6 +14,7 @@
 void how_to_play(char answer);
 int random_num();
 void checking(int number, char set[]);
+void lower(char confirm[]);
 
 struct player
 {
@@ -61,14 +62,62 @@ void checking(int number, char set[])
     }
 }
 
+void scores(struct player player[], int point1, int point2) //not confidents it correct test another day
+{
+    if (strcmp(player[0].abil, "Increase your score") == 0)
+        player[0].totalnumber += point1;
+    else if (strcmp(player[1].abil, "Increase your score") == 0)
+        player[1].totalnumber += point2;
+    if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0)
+        player[1].totalnumber -= point1 + 1;
+    else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0)
+        player[0].totalnumber -= point2 + 1;
+    if (strcmp(player[0].abil, "Stealing abilities") == 0)
+    {
+        if (strcmp(player[1].abil, "Increase your score") == 0)
+            player[0].totalnumber += point2;
+        else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0)
+            player[0].totalnumber -= point1 + 1;
+    }
+    else if (strcmp(player[1].abil, "Stealing abilities") == 0)
+    {
+        if (strcmp(player[0].abil, "Increase your score") == 0)
+            player[1].totalnumber += point1;
+        else if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0)
+            player[1].totalnumber -= point2 + 1;
+    }
+}
+
+void lower(char confirm[])
+{
+    for (int i=0; i<strlen(confirm); i++)
+        confirm[i] = tolower(confirm[i]);
+}
+
+void winner(struct player player[])
+{
+    if (player[0].totalnumber > player[1].totalnumber)
+    {
+        player[0].winscore++;
+        printf("%s win\n", player[0].name);
+    }
+    else if (player[1].totalnumber > player[0].totalnumber)
+    {
+        player[1].winscore++;
+        printf("%s win\n", player[1].name);
+    }
+    else printf("draw...\n");
+}
+
 int main()
 {
     char how_to, remem1, remem2, remem[100];
     struct player player[2];
     int number[10];
     int count1=0, count2=0;
-    char *ability[3] = {"Increase your score ", "Deducting points from the opposing player ", "Stealing abilities"};
+    char *ability[3] = {"Increase your score", "Deducting points from the opposing player", "Stealing abilities"};
     int select1, select2;
+    char confirm1[10], confirm2[10];
 
     printf("Do you want to know how to play this game?\n(Please answer y/n)\n");
     scanf("%c", &how_to);
@@ -126,8 +175,8 @@ int main()
 
         for (int i=0; i<3; i++)
         {
-            printf("%s score: %d\n", player[0].name, player[0].totalnumber);
-            printf("%s score: %d\n", player[1].name, player[1].totalnumber);
+            printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
+            printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
             printf("*****************\n");
             printf("%s", set_of_num);
             printf("\n%s please enter your number you choose.\n", player[0].name);
@@ -136,8 +185,8 @@ int main()
             checking(select1, set_of_num);
             system(CLEAR);
 
-            printf("%s score: %d\n", player[0].name, player[0].totalnumber);
-            printf("%s score: %d\n", player[1].name, player[1].totalnumber);
+            printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
+            printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
             printf("*****************\n");
             printf("%s", set_of_num);
             printf("\n%s please enter your number you choose.\n", player[1].name);
@@ -146,7 +195,29 @@ int main()
             checking(select2, set_of_num);
             system(CLEAR);
         }
+
+        printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
+        printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
+        printf("%s do you want to use your ability?\n", player[0].name);
+        printf("(Please type yes)\n");
+        scanf(" %[^\n]", confirm1);
+        printf("%s do you want to use your ability?\n", player[1].name);
+        printf("(Please type yes)\n");
+        scanf(" %[^\n]", confirm2);
+        lower(confirm1);
+        lower(confirm2);
+        if (strcmp(confirm1, "yes") == 0)
+            scores(player, p1, p2);
+        if (strcmp(confirm2, "yes") == 0)
+            scores(player, p1, p2);
+        winner(player);
+        system(CLEAR);
+        if (player[0].winscore == 2 || player[1].winscore == 2)
+            break;
     }
+
+    winner(player);
+    printf("END GAME!!!");
 
     return 0;
 }
