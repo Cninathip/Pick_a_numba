@@ -199,10 +199,10 @@ int main()
         printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
         printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
         printf("%s do you want to use your ability?\n", player[0].name);
-        printf("(Please type yes)\n");
+        printf("(if you want please type yes)\n");
         scanf(" %[^\n]", confirm1);
         printf("%s do you want to use your ability?\n", player[1].name);
-        printf("(Please type yes)\n");
+        printf("(if you want please type yes)\n");
         scanf(" %[^\n]", confirm2);
         lower(confirm1);
         lower(confirm2);
