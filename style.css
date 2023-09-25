@@ -1,17 +1,29 @@
 body{
-    background-color: hsl(73, 34%, 87%);
+    background-color: hsl(0, 0%, 0%);
+}
+.wallpaper{
+  width: 1550px;
+  position: absolute;
+  top: -125px;
+  left: -10px;
+  z-index: 0;
 }
 .play{
-    color: hsl(0, 0%, 0%);
-    font-size: 40px;
+    font-size: 20px;
     margin: auto;
     text-align: center;
-    position: relative;
-    top: 250px;
-    border: 5px solid hsl(0, 72%, 48%);
+    position: absolute;
+    top: 400px;
+    left: 150px;
+    border: 2px solid hsl(0, 72%, 48%);
     border-radius: 10px;
-    width: 12%;
+    width: 8%;
     animation: fade 5s infinite alternate linear;
+    z-index: 1;
+}
+.play a{
+  color: hsl(0, 0%, 100%);
+  text-decoration: none;
 }
 @keyframes fade{
     0%{border-color: hsl(0, 100%, 50%)}
@@ -25,19 +37,29 @@ body{
     88%{border-color: hsl(40, 100%, 50%)}
     100%{border-color: hsl(0, 100%, 50%)}
 }
-.menu{
-  background-color: black;
-  overflow: hidden;
+.title{
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  z-index: 1;
 }
-.menu a{
-  color: white;
-  text-align: center;
-  font-size: 25px;
-  padding: 5px;
-  text-decoration: none;
+.tagline{
+  color: hsl(0, 0%, 100%);
+  font-size: 45px;
+  position: absolute;
+  top: 150px;
+  left: 150px;
+  z-index: 1;
 }
-.menu a:hover{
-  background-color: hsl(290, 53%, 49%);
-  color: black;
+.info{
+  color: hsl(0, 0%, 100%);
+  font-size: 15px;
+  position: absolute;
+  top: 280px;
+  left: 150px;
+  width: 450px;
+  z-index: 1;
 }
 
