@@ -20,6 +20,7 @@ struct player
 {
     char name[10];
     char *abil;
+    int point_abi;
     int winscore;
     int totalnumber;
 };
@@ -62,30 +63,16 @@ void checking(int number, char set[])
     }
 }
 
-void scores(struct player player[], int point1, int point2) //not confidents it correct test another day
+void scores(struct player player[]) //not confidents it correct test another day
 {
     if (strcmp(player[0].abil, "Increase your score") == 0)
-        player[0].totalnumber += point1;
+        player[0].totalnumber += player[0].point_abi;
     else if (strcmp(player[1].abil, "Increase your score") == 0)
-        player[1].totalnumber += point2;
-    if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0)
-        player[1].totalnumber -= point1 + 1;
-    else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0)
-        player[0].totalnumber -= point2 + 1;
-    if (strcmp(player[0].abil, "Stealing abilities") == 0)
-    {
-        if (strcmp(player[1].abil, "Increase your score") == 0)
-            player[0].totalnumber += point2;
-        else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0)
-            player[0].totalnumber -= point1 + 1;
-    }
-    else if (strcmp(player[1].abil, "Stealing abilities") == 0)
-    {
-        if (strcmp(player[0].abil, "Increase your score") == 0)
-            player[1].totalnumber += point1;
-        else if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0)
-            player[1].totalnumber -= point2 + 1;
-    }
+        player[1].totalnumber += player[1].point_abi;
+    if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0) // pass
+        player[1].totalnumber -= player[0].point_abi;
+    else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0) // pass
+        player[0].totalnumber -= player[1].point_abi;
 }
 
 void lower(char confirm[])
@@ -115,9 +102,9 @@ int main()
     struct player player[2];
     int number[10];
     int count1=0, count2=0;
-    char *ability[3] = {"Increase your score", "Deducting points from the opposing player", "Stealing abilities"};
-    int select1, select2;
-    char confirm1[10], confirm2[10];
+    char *ability[2] = {"Increase your score", "Deducting points from the opposing player"};
+    int select1, select2, use_abi_p1=0, use_abi_p2=0;
+    char confirm1, confirm2;
 
     printf("Do you want to know how to play this game?\n(Please answer y/n)\n");
     scanf("%c", &how_to);
@@ -130,31 +117,19 @@ int main()
     scanf(" %[^\n]", player[1].name);
 
     printf("It's time to random ability!\n");
-    player[0].abil = ability[random_num() % 3];
-    int p1 = (random_num() % 4) + 1;
-    player[1].abil = ability[(random_num() + 1) % 3];
-    int p2 = (random_num() % 4) + 1;
+    player[0].abil = ability[random_num() % 2];
+    player[0].point_abi = (random_num() % 4) + 1;
+    player[1].abil = ability[(random_num() + 1) % 2];
+    player[1].point_abi = (random_num() % 4) + 1;
     printf("From now on, no other player should see your abilities. Ready or not?\n");
     printf("Please type something to confirm.\n");
     scanf(" %[^\n]", remem);
     system(CLEAR);
-    if (strcmp(player[0].abil, "Stealing abilities") == 0)
-    {
-        printf("%s your ability is Stealing abilities\n", player[0].name);
-        count1++;
-    }
-    else if (count1 == 0)
-        printf("%s your ability is %s (%d)\n", player[0].name, player[0].abil, p1);
+    printf("%s your ability is %s (%d)\n", player[0].name, player[0].abil, player[0].point_abi);
     printf("If you've memorized the abilities, please type y\n");
     scanf(" %c", &remem1);
     system(CLEAR);
-    if (strcmp(player[1].abil, "Stealing abilities") == 0)
-    {
-        printf("%s your ability is Stealing abilities\n", player[1].name);
-        count2++;
-    }
-    else if (count2 == 0)
-        printf("%s your ability is %s (%d)\n", player[1].name, player[1].abil, p2);
+    printf("%s your ability is %s (%d)\n", player[1].name, player[1].abil, player[1].point_abi);
     printf("If you've memorized the abilities, please type y\n");
     scanf(" %c", &remem2);
     system(CLEAR);
@@ -198,18 +173,29 @@ int main()
 
         printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
         printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
+
         printf("%s do you want to use your ability?\n", player[0].name);
-        printf("(if you want please type yes)\n");
-        scanf(" %[^\n]", confirm1);
-        printf("%s do you want to use your ability?\n", player[1].name);
-        printf("(if you want please type yes)\n");
-        scanf(" %[^\n]", confirm2);
-        lower(confirm1);
-        lower(confirm2);
-        if (strcmp(confirm1, "yes") == 0)
-            scores(player, p1, p2);
-        if (strcmp(confirm2, "yes") == 0)
-            scores(player, p1, p2);
+        printf("(if you want please type y)\n");
+        scanf(" %c", &confirm1);
+        if ((tolower(confirm1) == 'y') && (use_abi_p1 > 0))
+            printf("%s! You can't use ability anymore.", player[0].name);
+
+        printf("%s do you want to use your ability?\n", player[1].name); 
+        printf("(if you want please type y)\n");
+        scanf(" %c", &confirm2);
+        if ((tolower(confirm2) == 'y') && (use_abi_p2 > 0))
+            printf("%s! You can't use ability anymore.", player[1].name);
+
+        if ((tolower(confirm1) == 'y') && (use_abi_p1 == 0))
+        {
+            scores(player);
+            use_abi_p1++;
+        }
+        if ((tolower(confirm2) == 'y') && (use_abi_p2 == 0))
+        {
+            scores(player);
+            use_abi_p2++;
+        }
         winner(player);
         system(CLEAR);
         if (player[0].winscore == 2 || player[1].winscore == 2)
