@@ -1,0 +1,79 @@
+body{
+    background-color: hsl(0, 0%, 0%);
+}
+.wallpaper{
+  width: 1550px;
+  position: absolute;
+  top: -125px;
+  left: -10px;
+  z-index: 0;
+}
+.play{
+    font-size: 20px;
+    margin: auto;
+    text-align: center;
+    position: absolute;
+    top: 430px;
+    left: 150px;
+    border: 2px solid hsl(0, 72%, 48%);
+    border-radius: 10px;
+    width: 8%;
+    animation: fade 5s infinite alternate linear;
+    z-index: 1;
+}
+.play a{
+  color: hsl(0, 0%, 100%);
+  text-decoration: none;
+}
+@keyframes fade{
+    0%{border-color: hsl(0, 100%, 50%)}
+    11%{border-color: hsl(320, 100%, 50%)}
+    22%{border-color: hsl(280, 100%, 50%)}
+	  33%{border-color: hsl(240, 100%, 50%)}
+	  44%{border-color: hsl(200, 98%, 50%)}
+	  55%{border-color: hsl(160, 100%, 50%)}
+	  66%{border-color: hsl(120, 100%, 50%)}
+    77%{border-color: hsl(80, 100%, 50%)}
+    88%{border-color: hsl(40, 100%, 50%)}
+    100%{border-color: hsl(0, 100%, 50%)}
+}
+.title{
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  z-index: 1;
+}
+.tagline{
+  color: hsl(0, 0%, 100%);
+  font-size: 45px;
+  position: absolute;
+  top: 180px;
+  left: 150px;
+  z-index: 1;
+}
+.info{
+  color: hsl(0, 0%, 100%);
+  font-size: 15px;
+  position: absolute;
+  top: 310px;
+  left: 150px;
+  width: 450px;
+  z-index: 1;
+}
+.demo{
+  color: hsl(0, 0%, 100%);
+  font-size: 45px;
+  position: absolute;
+  top: 50px;
+  right: 350px;
+  z-index: 1;
+}
+.video{
+  position: absolute;
+  top: 180px;
+  right: 90px;
+  z-index: 1;
+}
+
