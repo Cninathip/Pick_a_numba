@@ -14,7 +14,6 @@
 void how_to_play(char answer);
 int random_num();
 void checking(int number, char set[]);
-void lower(char confirm[]);
 
 struct player
 {
@@ -33,7 +32,7 @@ void how_to_play(char answer)
         printf("How to play this game!\n");
         printf("There are 9 slots, number in range are 0-10 and you can choose only 3 slots. You cannot see the numbers inside the selected slots. ");
         printf("Who is with the highest total sum will win that round, and must win 2 out of 3 rounds to conclude the game.\n");
-        printf("And of course, we have a special rule. At the beginning of the game, there will be a random ability assigned to each player to help increase or decrease the numbers of the opponent. Plus, there's also the option to steal abilities.");
+        printf("And of course, we have a special rule. At the beginning of the game, there will be a random ability assigned to each player to help increase your number or decrease the numbers of the opponent.");
         printf("\n-------\n");
     }
 }
@@ -63,22 +62,24 @@ void checking(int number, char set[])
     }
 }
 
-void scores(struct player player[]) //not confidents it correct test another day
+void scores(struct player player[], int who) //not confidents it correct test another day
 {
-    if (strcmp(player[0].abil, "Increase your score") == 0)
-        player[0].totalnumber += player[0].point_abi;
-    else if (strcmp(player[1].abil, "Increase your score") == 0)
-        player[1].totalnumber += player[1].point_abi;
-    if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0) // pass
-        player[1].totalnumber -= player[0].point_abi;
-    else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0) // pass
-        player[0].totalnumber -= player[1].point_abi;
-}
-
-void lower(char confirm[])
-{
-    for (int i=0; i<strlen(confirm); i++)
-        confirm[i] = tolower(confirm[i]);
+    if (who == 1)
+    {
+        if (strcmp(player[0].abil, "Increase your score") == 0)
+            player[0].totalnumber += player[0].point_abi;
+        else if (strcmp(player[0].abil, "Deducting points from the opposing player") == 0)
+            player[1].totalnumber -= player[0].point_abi;
+    }
+    else if (who == 2)
+    {
+        if (strcmp(player[1].abil, "Increase your score") == 0)
+            player[1].totalnumber += player[1].point_abi;
+        else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0)
+            player[0].totalnumber -= player[1].point_abi;
+    }
+    
+    
 }
 
 void winner(struct player player[])
@@ -174,28 +175,42 @@ int main()
         printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
         printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
 
-        printf("%s do you want to use your ability?\n", player[0].name);
-        printf("(if you want please type y)\n");
-        scanf(" %c", &confirm1);
-        if ((tolower(confirm1) == 'y') && (use_abi_p1 > 0))
-            printf("%s! You can't use ability anymore.", player[0].name);
+        printf("*****************\n");
 
-        printf("%s do you want to use your ability?\n", player[1].name); 
-        printf("(if you want please type y)\n");
-        scanf(" %c", &confirm2);
-        if ((tolower(confirm2) == 'y') && (use_abi_p2 > 0))
-            printf("%s! You can't use ability anymore.", player[1].name);
+        if (use_abi_p1 > 0)
+            printf("%s, You already used ability.\n", player[0].name);
+        else if (use_abi_p1 == 0)
+        {
+            printf("%s do you want to use your ability?\n", player[0].name);
+            printf("(if you want please type y)\n");
+            scanf(" %c", &confirm1);
+            if (tolower(confirm1) == 'y')
+            {
+                scores(player, 1);
+                use_abi_p1++;
+            }
+            
+        }
 
-        if ((tolower(confirm1) == 'y') && (use_abi_p1 == 0))
+        printf("*****************\n");
+
+        if (use_abi_p2 > 0)
+            printf("%s, You already used ability.\n", player[1].name);
+        else if (use_abi_p2 == 0)
         {
-            scores(player);
-            use_abi_p1++;
+            printf("%s do you want to use your ability?\n", player[1].name); 
+            printf("(if you want please type y)\n");
+            scanf(" %c", &confirm2);
+            if (tolower(confirm2) == 'y')
+            {
+                scores(player, 2);
+                use_abi_p2++;
+            }
+            
         }
-        if ((tolower(confirm2) == 'y') && (use_abi_p2 == 0))
-        {
-            scores(player);
-            use_abi_p2++;
-        }
+
+        printf("*****************\n");
+
         winner(player);
         system(CLEAR);
         if (player[0].winscore == 2 || player[1].winscore == 2)
