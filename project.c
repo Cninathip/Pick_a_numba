@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
-#include<conio.h> 
 #include<stdlib.h>
 #include<time.h>
 
@@ -13,7 +12,8 @@
 
 void how_to_play(char answer);
 int random_num();
-void checking(int number, char set[]);
+void mark_choose(int number, char set[]);
+int check_choose(int num, int number[], int round);
 
 struct player
 {
@@ -50,7 +50,29 @@ int random_num()
     return rand() % 10;
 }
 
-void checking(int number, char set[])
+int check_choose(int num, int number[], int round)
+{
+    int numbing, count=0;
+    if (round == 0)
+        return num;
+    else
+    {
+        for (int i=0; i<round; i++)
+        {
+            if(number[i] == num)
+            {
+                printf("Please choose another number.\n");
+                scanf("%d", &numbing);
+                return check_choose(numbing, number, round);
+            }
+            else count++;
+        }
+        if (count == round)
+            return num;
+    }
+}
+
+void mark_choose(int number, char set[])
 {
     for (int i = 0; i < 41; i++)
     {
@@ -78,8 +100,6 @@ void scores(struct player player[], int who) //not confidents it correct test an
         else if (strcmp(player[1].abil, "Deducting points from the opposing player") == 0)
             player[0].totalnumber -= player[1].point_abi;
     }
-    
-    
 }
 
 void winner(struct player player[])
@@ -101,8 +121,8 @@ int main()
 {
     char how_to, remem1, remem2, remem[100];
     struct player player[2];
-    int number[10];
-    int count1=0, count2=0;
+    int number[6];
+    int round=0;
     char *ability[2] = {"Increase your score", "Deducting points from the opposing player"};
     int select1, select2, use_abi_p1=0, use_abi_p2=0;
     char confirm1, confirm2;
@@ -157,8 +177,11 @@ int main()
             printf("%s", set_of_num);
             printf("\n%s please enter your number you choose.\n", player[0].name);
             scanf("%d", &select1);
+            int num1 = check_choose(select1, number, round);
+            number[round] = num1;
+            round++;
             player[0].totalnumber += number[select1];
-            checking(select1, set_of_num);
+            mark_choose(num1, set_of_num);
             system(CLEAR);
 
             printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
@@ -167,8 +190,11 @@ int main()
             printf("%s", set_of_num);
             printf("\n%s please enter your number you choose.\n", player[1].name);
             scanf("%d", &select2);
+            int num2 = check_choose(select2, number, round);
+            number[round] = num2;
+            round++;
             player[1].totalnumber += number[select2];
-            checking(select2, set_of_num);
+            mark_choose(num2, set_of_num);
             system(CLEAR);
         }
 
@@ -210,6 +236,8 @@ int main()
         }
 
         printf("*****************\n");
+
+        round = 0;
 
         winner(player);
         system(CLEAR);
