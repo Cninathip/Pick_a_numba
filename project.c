@@ -17,7 +17,6 @@ int check_choose(int num, int number[], int round);
 
 struct player
 {
-    char name[10];
     char *abil;
     int point_abi;
     int winscore;
@@ -119,7 +118,7 @@ void winner(struct player player[])
 
 int main()
 {
-    char how_to, remem1, remem2, remem[100];
+    char how_to, remem1, remem2, remem[100], name1[10], name2[10];
     struct player player[2];
     int number[6];
     int round=0;
@@ -133,9 +132,9 @@ int main()
 
     printf("Please enter your name.\n(character can not longer than 10 characer.)\n");
     printf("Player1 : ");
-    scanf(" %[^\n]", player[0].name);
+    scanf(" %[^\n]", name1);
     printf("Player2 : ");
-    scanf(" %[^\n]", player[1].name);
+    scanf(" %[^\n]", name2);
 
     printf("It's time to random ability!\n");
     player[0].abil = ability[random_num() % 2];
@@ -171,8 +170,9 @@ int main()
 
         for (int i=0; i<3; i++)
         {
-            printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
-            printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
+            // printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
+            printf("%s (win %d) score: %d\n", name1, player[0].winscore, player[0].totalnumber);
+            printf("%s (win %d) score: %d\n", name2, player[1].winscore, player[1].totalnumber);
             printf("*****************\n");
             printf("%s", set_of_num);
             printf("\n%s please enter your number you choose.\n", player[0].name);
@@ -184,8 +184,8 @@ int main()
             mark_choose(num1, set_of_num);
             system(CLEAR);
 
-            printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
-            printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
+            printf("%s (win %d) score: %d\n", name1, player[0].winscore, player[0].totalnumber);
+            printf("%s (win %d) score: %d\n", name2, player[1].winscore, player[1].totalnumber);
             printf("*****************\n");
             printf("%s", set_of_num);
             printf("\n%s please enter your number you choose.\n", player[1].name);
@@ -198,8 +198,8 @@ int main()
             system(CLEAR);
         }
 
-        printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
-        printf("%s (win %d) score: %d\n", player[1].name, player[1].winscore, player[1].totalnumber);
+        printf("%s (win %d) score: %d\n", name1, player[0].winscore, player[0].totalnumber);
+        printf("%s (win %d) score: %d\n", name2, player[1].winscore, player[1].totalnumber);
 
         printf("*****************\n");
 
