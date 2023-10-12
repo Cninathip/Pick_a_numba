@@ -101,17 +101,17 @@ void scores(struct player player[], int who) //not confidents it correct test an
     }
 }
 
-void winner(struct player player[])
+void winner(struct player player[], char name1[], char name2[])
 {
     if (player[0].totalnumber > player[1].totalnumber)
     {
         player[0].winscore++;
-        printf("%s win\n", player[0].name);
+        printf("%s win\n", name1);
     }
     else if (player[1].totalnumber > player[0].totalnumber)
     {
         player[1].winscore++;
-        printf("%s win\n", player[1].name);
+        printf("%s win\n", name2);
     }
     else printf("draw...\n");
 }
@@ -145,11 +145,11 @@ int main()
     printf("Please type something to confirm.\n");
     scanf(" %[^\n]", remem);
     system(CLEAR);
-    printf("%s your ability is %s (%d)\n", player[0].name, player[0].abil, player[0].point_abi);
+    printf("%s your ability is %s (%d)\n", name1, player[0].abil, player[0].point_abi);
     printf("If you've memorized the abilities, please type y\n");
     scanf(" %c", &remem1);
     system(CLEAR);
-    printf("%s your ability is %s (%d)\n", player[1].name, player[1].abil, player[1].point_abi);
+    printf("%s your ability is %s (%d)\n", name2, player[1].abil, player[1].point_abi);
     printf("If you've memorized the abilities, please type y\n");
     scanf(" %c", &remem2);
     system(CLEAR);
@@ -170,12 +170,11 @@ int main()
 
         for (int i=0; i<3; i++)
         {
-            // printf("%s (win %d) score: %d\n", player[0].name, player[0].winscore, player[0].totalnumber);
             printf("%s (win %d) score: %d\n", name1, player[0].winscore, player[0].totalnumber);
             printf("%s (win %d) score: %d\n", name2, player[1].winscore, player[1].totalnumber);
             printf("*****************\n");
             printf("%s", set_of_num);
-            printf("\n%s please enter your number you choose.\n", player[0].name);
+            printf("\n%s please enter your number you choose.\n", name1);
             scanf("%d", &select1);
             int num1 = check_choose(select1, number, round);
             number[round] = num1;
@@ -188,7 +187,7 @@ int main()
             printf("%s (win %d) score: %d\n", name2, player[1].winscore, player[1].totalnumber);
             printf("*****************\n");
             printf("%s", set_of_num);
-            printf("\n%s please enter your number you choose.\n", player[1].name);
+            printf("\n%s please enter your number you choose.\n", name2);
             scanf("%d", &select2);
             int num2 = check_choose(select2, number, round);
             number[round] = num2;
@@ -204,10 +203,10 @@ int main()
         printf("*****************\n");
 
         if (use_abi_p1 > 0)
-            printf("%s, You already used ability.\n", player[0].name);
+            printf("%s, You already used ability.\n", name1);
         else if (use_abi_p1 == 0)
         {
-            printf("%s do you want to use your ability?\n", player[0].name);
+            printf("%s do you want to use your ability?\n", name1);
             printf("(if you want please type y)\n");
             scanf(" %c", &confirm1);
             if (tolower(confirm1) == 'y')
@@ -221,10 +220,10 @@ int main()
         printf("*****************\n");
 
         if (use_abi_p2 > 0)
-            printf("%s, You already used ability.\n", player[1].name);
+            printf("%s, You already used ability.\n", name2);
         else if (use_abi_p2 == 0)
         {
-            printf("%s do you want to use your ability?\n", player[1].name); 
+            printf("%s do you want to use your ability?\n", name2); 
             printf("(if you want please type y)\n");
             scanf(" %c", &confirm2);
             if (tolower(confirm2) == 'y')
@@ -239,13 +238,13 @@ int main()
 
         round = 0;
 
-        winner(player);
+        winner(player, name1, name2);
         system(CLEAR);
         if (player[0].winscore == 2 || player[1].winscore == 2)
             break;
     }
 
-    winner(player);
+    winner(player, name1, name2);
     printf("END GAME!!!");
 
     return 0;
