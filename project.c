@@ -14,7 +14,7 @@ void how_to_play(char answer);
 int random_num();
 void mark_choose(int number, char set[]);
 int check_choose(int num, int number[], int round);
-int winner(int winscore1, int winscore2, int totalnumber1, int totalnumber2, char name1[], char name2[]);
+int winner(int winscore1, int winscore2, int totalnumber1, int totalnumber2);
 
 void how_to_play(char answer)
 {
@@ -82,7 +82,7 @@ void mark_choose(int number, char set[])
     }
 }
 
-int winner(int winscore1, int winscore2, int totalnumber1, int totalnumber2, char name1[], char name2[])
+int winner(int winscore1, int winscore2, int totalnumber1, int totalnumber2)
 {
     if (totalnumber1 > totalnumber2)
     {
@@ -164,7 +164,7 @@ int main()
             printf("%s\n", set_of_num);
             printf("%s, please enter the number you choose.\n", name1);
             scanf("%d", &select1);
-            int num1 = check_choose(select1, number, round);
+            int num1 = check_choose(select1, num, round);
             num[round] = num1;
             round++;
             totalnumber1 += number[num1];
@@ -177,7 +177,7 @@ int main()
             printf("%s\n", set_of_num);
             printf("%s, please enter the number you choose.\n", name2);
             scanf("%d", &select2);
-            int num2 = check_choose(select2, number, round);
+            int num2 = check_choose(select2, num, round);
             num[round] = num2;
             round++;
             totalnumber2 += number[num2];
@@ -232,7 +232,7 @@ int main()
         printf("*****************\n");
         round = 0;
 
-        int round_winner = winner(winscore1, winscore2, totalnumber1, totalnumber2, name1, name2);
+        int round_winner = winner(winscore1, winscore2, totalnumber1, totalnumber2);
 
         if (round_winner != 0)
         {
@@ -260,7 +260,7 @@ int main()
             break;
     }
 
-    int game_winner = winner(winscore1, winscore2, totalnumber1, totalnumber2, name1, name2);
+    int game_winner = winner(winscore1, winscore2, totalnumber1, totalnumber2);
     if (game_winner != 0)
     {
         if (game_winner == 1)
@@ -276,4 +276,3 @@ int main()
 
     return 0;
 }
-
