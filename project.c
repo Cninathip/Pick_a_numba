@@ -96,14 +96,14 @@ int winner(int winscore1, int winscore2, int totalnumber1, int totalnumber2, cha
     }
     else
     {
-        return 0;  // Indicates a draw
+        return 0;
     }
 }
 
 int main()
 {
     char how_to, name1[10], name2[10], ans, ok[100];
-    int number[6];
+    int num[6], number[10];
     int round = 0;
     char *ability[2] = {"Increase your score", "Deducting points from the opposing player"};
     int select1, select2, use_abi_p1 = 0, use_abi_p2 = 0;
@@ -151,9 +151,10 @@ int main()
         totalnumber1 = 0;
         totalnumber2 = 0;
         char set_of_num[41] = "| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |";
-
-        for (int i = 0; i < 10; i++)
-            number[i] = random_num();
+        for (int k = 0; k < 10; k++)
+        {
+            number[k] = random_num();
+        }
 
         for (int j = 0; j < 3; j++)
         {
@@ -164,9 +165,9 @@ int main()
             printf("%s, please enter the number you choose.\n", name1);
             scanf("%d", &select1);
             int num1 = check_choose(select1, number, round);
-            number[round] = num1;
+            num[round] = num1;
             round++;
-            totalnumber1 += num1;
+            totalnumber1 += number[num1];
             mark_choose(num1, set_of_num);
             system(CLEAR);
 
@@ -177,9 +178,9 @@ int main()
             printf("%s, please enter the number you choose.\n", name2);
             scanf("%d", &select2);
             int num2 = check_choose(select2, number, round);
-            number[round] = num2;
+            num[round] = num2;
             round++;
-            totalnumber2 += num2;
+            totalnumber2 += number[num2];
             mark_choose(num2, set_of_num);
             system(CLEAR);
         }
@@ -275,3 +276,4 @@ int main()
 
     return 0;
 }
+
