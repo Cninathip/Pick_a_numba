@@ -158,8 +158,12 @@ int main()
     
     printf("Let's start!!!\n");
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; ((winscore1 < 2) || (winscore2 < 2)); i++)
     {
+        if (winscore1 == 2 && winscore2 == 2)
+            break;
+        if (winscore1 == 2 || winscore2 == 2)
+            break;
         printf("Round %d\n", i + 1);
         totalnumber1 = 0;
         totalnumber2 = 0;
@@ -183,7 +187,9 @@ int main()
             num[round] = num1;
             round++;
             totalnumber1 += number[num1];
+            printf("%s, you got %d.\nPlease wait a second.\n", name1, number[num1]);
             mark_choose(num1, set_of_num);
+            delay(1);
             system(CLEAR);
 
             printf("%s (win %d) score: %d\n", name1, winscore1, totalnumber1);
@@ -198,7 +204,9 @@ int main()
             num[round] = num2;
             round++;
             totalnumber2 += number[num2];
+            printf("%s, you got %d.\nPlease wait a second.\n", name2, number[num2]);
             mark_choose(num2, set_of_num);
+            delay(1);
             system(CLEAR);
         }
 
@@ -282,6 +290,9 @@ int main()
                         printf("Congratulations to %s! Your win score +1.\n", name2);
                         winscore2++;
                     }
+                    printf("Please type y to go next page.\n");
+                    scanf(" %c", &ans);
+                    system(CLEAR);
                     
                 }
                 use_abi_p2++;
@@ -313,10 +324,7 @@ int main()
 
         printf("Do you want to go to the next round? (Please type y to confirm)\n");
         scanf(" %c", &ans);
-        if (ans == 'y')
-            system(CLEAR);
-        if (winscore1 == 2 || winscore2 == 2)
-            break;
+        system(CLEAR);
     }
 
     int game_winner = winner(winscore1, winscore2, totalnumber1, totalnumber2);
@@ -327,7 +335,7 @@ int main()
         else
             printf("%s wins the game!\n", name2);
     }
-    else
+    else if (winscore1 == winscore2)
     {
         printf("The game ends in a draw!\n");
     }
