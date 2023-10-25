@@ -11,7 +11,16 @@ body{
 .title{
   position: relative;
   top: -5px;
-  width: 350px;
+  width: 250px;
+}
+.bar {
+  background-color: hsl(0, 0%, 0%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  z-index: 2;
 }
 .play{
     font-size: 30px;
@@ -41,15 +50,6 @@ body{
     77%{border-color: hsl(80, 100%, 50%)}
     88%{border-color: hsl(40, 100%, 50%)}
     100%{border-color: hsl(0, 100%, 50%)}
-}
-.bar {
-  background-color: hsl(0, 0%, 0%);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  z-index: 1;
 }
 .tagline{
   color: hsl(0, 0%, 100%);
