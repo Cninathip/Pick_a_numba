@@ -8,16 +8,21 @@ body{
   left: -10px;
   z-index: 0;
 }
+.title{
+  position: relative;
+  top: -5px;
+  width: 350px;
+}
 .play{
-    font-size: 20px;
+    font-size: 30px;
     margin: auto;
     text-align: center;
     position: absolute;
-    top: 430px;
-    left: 150px;
+    top: 410px;
+    left: 275px;
     border: 2px solid hsl(0, 72%, 48%);
     border-radius: 10px;
-    width: 8%;
+    width: 10%;
     animation: fade 5s infinite alternate linear;
     z-index: 1;
 }
@@ -37,12 +42,13 @@ body{
     88%{border-color: hsl(40, 100%, 50%)}
     100%{border-color: hsl(0, 100%, 50%)}
 }
-.title{
-  position: relative;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 500px;
+.bar {
+  background-color: hsl(0, 0%, 0%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
   z-index: 1;
 }
 .tagline{
@@ -66,7 +72,7 @@ body{
   color: hsl(0, 0%, 100%);
   font-size: 45px;
   position: absolute;
-  top: 50px;
+  top: 65px;
   right: 350px;
   z-index: 1;
 }
@@ -76,4 +82,3 @@ body{
   right: 90px;
   z-index: 1;
 }
-
